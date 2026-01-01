@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -14,7 +15,7 @@ const User = require("./models/user.js");
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const MONGO_URL = process.env.MONGO_URL;
 
 main().then(() => {
     console.log("connected to DB")
@@ -34,14 +35,14 @@ app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
 const sessionOptions = {
-    secret: "mysupersecretkey",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {   
-        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-    },
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {   
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
 };
 
 app.use(session(sessionOptions));
