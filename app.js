@@ -12,8 +12,9 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const listingsRouter = require("./routes/listing.js");
+const reviewsRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js");
 
 const MONGO_URL = process.env.MONGO_URL;
 
@@ -63,21 +64,23 @@ app.get("/", (req, res) => {
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
     next();
 });
 
-app.get("/demouser" , async (req, res) =>{
-    let fakeUser = new User({
-        email: "swapnil@123",
-        username: "s-kolekar",
-    });
+// app.get("/demouser" , async (req, res) =>{
+//     let fakeUser = new User({
+//         email: "swapnil@123",
+//         username: "s-kolekar",
+//     });
 
-    let registeredUser = await User.register(fakeUser , "helloworld");
-    res.send(registeredUser);
-});
+//     let registeredUser = await User.register(fakeUser , "helloworld");
+//     res.send(registeredUser);
+// });
 
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews)
+app.use("/listings", listingsRouter);
+app.use("/listings/:id/reviews", reviewsRouter);
+app.use("/" , userRouter);
 
 // 404 handler - works in Express v5
 app.use((req, res, next) => {
