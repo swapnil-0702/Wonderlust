@@ -1,4 +1,7 @@
-require("dotenv").config();
+if(process.env.NODE_ENV != "production"){
+    require("dotenv").config({ quiet: true });
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -17,6 +20,7 @@ const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 const MONGO_URL = process.env.MONGO_URL;
+mongoose.set("strictQuery", true); 
 
 main().then(() => {
     console.log("connected to DB")
@@ -36,7 +40,7 @@ app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
 const sessionOptions = {
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SECRET || "mysupersecretkey",
   resave: false,
   saveUninitialized: true,
   cookie: {   
@@ -45,6 +49,7 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
+
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -57,9 +62,9 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-app.get("/", (req, res) => {
-    res.send("Hi i am root");
-});
+// app.get("/", (req, res) => {
+//     res.send("Hi i am root");
+// });
 
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
@@ -98,3 +103,4 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
     console.log("server is listing on port 8080");
 });
+

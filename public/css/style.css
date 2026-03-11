@@ -143,3 +143,59 @@ body{
     color: #f59e0b; /* gold */
     font-weight: 600;
 }
+
+#map {
+    height: 300px;
+    width: 600px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.filters{
+display:flex;
+gap:40px;
+padding:10px;
+border-bottom:1px solid #ddd;
+overflow-x:auto;
+}
+
+.filters a{
+text-decoration:none;
+color:black;
+text-align:center;
+font-size:14px;
+}
+
+.filters i{
+font-size:22px;
+display:block;
+margin-bottom:5px;
+}
+
+.filters a{
+    text-decoration: none;
+    color: #555;
+    text-align: center;
+    opacity: 0.9;
+    transition: all 0.2s ease;
+}
+
+.filters a:hover{
+    opacity: 1;
+    color: black;
+}
+
+.filters i{
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.filters a:hover i{
+    transform: scale(1.08);
+}
+
+.btn-search {
+    background-color: #fe424d;
+    color: #fff;
+}
+

@@ -1,11 +1,71 @@
 <% layout("/layouts/boilerplate") %>
-    <h3>All Listings</h3>
+
+<div class="filters">
+
+    <a href="/listings?category=trending">
+        <i class="fa-solid fa-fire"></i>
+        <p>Trending</p>
+    </a>
+
+    <a href="/listings?category=rooms">
+        <i class="fa-solid fa-bed"></i>
+        <p>Rooms</p>
+    </a>
+
+    <a href="/listings?category=beach">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <p>Beach</p>
+    </a>
+
+    <a href="/listings?category=mountain">
+        <i class="fa-solid fa-mountain"></i>
+        <p>Mountains</p>
+    </a>
+
+    <a href="/listings?category=camping">
+        <i class="fa-solid fa-campground"></i>
+        <p>Camping</p>
+    </a>
+
+    <a href="/listings?category=city">
+        <i class="fa-solid fa-city"></i>
+        <p>City</p>
+    </a>
+
+    <a href="/listings?category=castle">
+        <i class="fa-solid fa-chess-rook"></i>
+        <p>Castle</p>
+    </a>
+
+    <a href="/listings?category=island">
+        <i class="fa-solid fa-water"></i>
+        <p>Island</p>
+    </a>
+
+    <a href="/listings?category=farm">
+        <i class="fa-solid fa-tractor"></i>
+        <p>Farm</p>
+    </a>
+
+    <a href="/listings?category=snow">
+        <i class="fa-solid fa-snowflake"></i>
+        <p>Snow</p>
+    </a>
+
+    <a href="/listings?category=forest">
+        <i class="fa-solid fa-tree"></i>
+        <p>Forest</p>
+    </a>
+
+</div>
+
+<!-- <h3>All Listings</h3> -->
     <!-- <form action="/listings/new" method="GET">
         <button>Create New Listings</button>
     </form> -->
 
 <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-      <% for (let listing of allListings) { %>
+      <% for (let listing of listings) { %>
       <a href="/listings/<%= listing._id %>" class="listing-link">  
         <div class="card col">
             <img src="<%= listing.image && listing.image.url ? listing.image.url : 'https://via.placeholder.com/300x200?text=No+Image' %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
