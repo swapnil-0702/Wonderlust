@@ -2,8 +2,21 @@ const { model } = require("mongoose");
 const Listing = require("../models/listing")
 
 module.exports.index = async (req, res) => {
-    const allListings = await Listing.find({});
+
+    const { search } = req.query;
+
+    let allListings;
+
+    if (search) {
+        allListings = await Listing.find({
+            location: { $regex: search, $options: "i" }
+        });
+    } else {
+        allListings = await Listing.find({});
+    }
+
     res.render("listings/index", { listings: allListings });
+
 };
 
 
