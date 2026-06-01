@@ -30,11 +30,11 @@ document.addEventListener("DOMContentLoaded", async function () {
             .bindPopup(`<b>${window.listingTitle}</b><br>${window.locationText}`)
             .openPopup();
 
+        setTimeout(() => {
+            map.invalidateSize();
+        }, 100);
+
     } catch (err) {
         console.log("Map error:", err);
     }
 });
-
-setTimeout(() => {
-    map.invalidateSize();
-}, 100);
