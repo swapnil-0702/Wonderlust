@@ -20,7 +20,7 @@ const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-const dburl = process.env.ATLASDB_URL;
+const dburl = process.env.MONGO_URL;
 mongoose.set("strictQuery", true); 
 
 main().then(() => {
