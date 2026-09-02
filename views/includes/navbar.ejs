@@ -1,26 +1,26 @@
 <style>
-.search-btn {
-  background-color: #fe424d;
-  color: #fff;
-  border-radius: 25px;
-  padding: 0 1rem;
-  white-space: nowrap;
-}
+  .search-btn {
+    background-color: #fe424d;
+    color: #fff;
+    border-radius: 25px;
+    padding: 0 1rem;
+    white-space: nowrap;
+  }
 
-.search-btn:hover {
-  background-color: #fe424d;
-  color: #fff;
-}
+  .search-btn:hover {
+    background-color: #fe424d;
+    color: #fff;
+  }
 
-.search-btn i {
-  display: inline;
-  margin-right: 0.5rem;
-}
+  .search-btn i {
+    display: inline;
+    margin-right: 0.5rem;
+  }
 
-.search-inp {
-  border-radius: 25px;
-  padding: 0.5rem 2.5rem 0.5rem 4rem;
-}
+  .search-inp {
+    border-radius: 25px;
+    padding: 0.5rem 2.5rem 0.5rem 4rem;
+  }
 
   /* Profile Avatar */
   .profile-avatar {
@@ -74,7 +74,6 @@
   }
 </style>
 
-
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
 
@@ -96,14 +95,12 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
       <!-- Explore -->
       <div class="navbar-nav">
         <a class="nav-link" href="/listings">Explore</a>
       </div>
-
 
       <!-- Search -->
       <div class="navbar-nav ms-auto">
@@ -113,7 +110,6 @@
           action="/listings"
           method="GET"
         >
-
           <input
             class="form-control me-2 search-inp"
             type="search"
@@ -126,10 +122,8 @@
             <i class="fa-solid fa-magnifying-glass"></i>
             Search
           </button>
-
         </form>
       </div>
-
 
       <!-- Right Side -->
       <div class="navbar-nav ms-auto align-items-center">
@@ -139,8 +133,8 @@
           Become a host
         </a>
 
-
-        <% if (!currUser) { %>
+        <!-- Login / Signup -->
+        <% if (typeof currUser === "undefined" || !currUser) { %>
 
           <!-- Signup -->
           <a class="nav-link" href="/signup">
@@ -154,8 +148,8 @@
 
         <% } %>
 
-
-        <% if (currUser) { %>
+        <!-- Profile -->
+        <% if (typeof currUser !== "undefined" && currUser) { %>
 
           <!-- Profile Avatar -->
           <div class="dropdown profile-dropdown">
@@ -193,7 +187,6 @@
         <% } %>
 
       </div>
-
     </div>
   </div>
 </nav>
