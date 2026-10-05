@@ -2,21 +2,34 @@ const { model } = require("mongoose");
 const Listing = require("../models/listing")
 
 module.exports.index = async (req, res) => {
-
-    const { search } = req.query;
+    const { search, category } = req.query;
 
     let allListings;
 
-    if (search) {
+    if (search && search.trim() !== "") {
         allListings = await Listing.find({
-            location: { $regex: search, $options: "i" }
+            $or: [
+                { location: { $regex: search.trim(), $options: "i" } },
+                { title: { $regex: search.trim(), $options: "i" } },
+                { country: { $regex: search.trim(), $options: "i" } }
+            ]
         });
+    } else if (category && category !== "all") {
+        allListings = await Listing.find({
+            $or: [
+                { title: { $regex: category, $options: "i" } },
+                { description: { $regex: category, $options: "i" } },
+                { location: { $regex: category, $options: "i" } }
+            ]
+        });
+        if (!allListings || allListings.length === 0) {
+            allListings = await Listing.find({});
+        }
     } else {
         allListings = await Listing.find({});
     }
 
     res.render("listings/index", { listings: allListings });
-
 };
 
 

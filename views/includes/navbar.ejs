@@ -1,192 +1,280 @@
-<style>
-  .search-btn {
-    background-color: #fe424d;
-    color: #fff;
-    border-radius: 25px;
-    padding: 0 1rem;
-    white-space: nowrap;
-  }
+<nav class="navbar wanderlust-navbar sticky-top">
+  <div class="container-fluid navbar-container">
 
-  .search-btn:hover {
-    background-color: #fe424d;
-    color: #fff;
-  }
+    <!-- Left: Brand & Explore -->
+    <div class="nav-left d-flex align-items-center">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/listings">
+        <i class="fa-regular fa-compass brand-icon"></i>
+        <span class="brand-text">wanderlust</span>
+      </a>
+      <a class="nav-link explore-link d-none d-sm-inline-flex" href="/listings">
+        Explore
+      </a>
+    </div>
 
-  .search-btn i {
-    display: inline;
-    margin-right: 0.5rem;
-  }
+    <!-- Center: Modern 3-Section Airbnb-inspired Search Bar -->
+    <div class="nav-center">
+      <form class="search-form m-0" role="search" action="/listings" method="GET" id="searchTriForm">
+        <div class="search-bar-tri-section" id="searchBarTriSection">
 
-  .search-inp {
-    border-radius: 25px;
-    padding: 0.5rem 2.5rem 0.5rem 4rem;
-  }
-
-  /* Profile Avatar */
-  .profile-avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: none;
-    background-color: #fe424d;
-    color: white;
-    font-size: 1rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .profile-avatar:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  /* Dropdown */
-  .profile-dropdown {
-    margin-left: 0.8rem;
-  }
-
-  .profile-dropdown .dropdown-menu {
-    margin-top: 0.6rem;
-    border-radius: 12px;
-    padding: 0.5rem;
-    min-width: 170px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
-    border: 1px solid #eee;
-  }
-
-  .profile-dropdown .dropdown-item {
-    border-radius: 8px;
-    padding: 0.6rem 0.8rem;
-  }
-
-  .profile-dropdown .dropdown-item:hover {
-    background-color: #f8f8f8;
-  }
-
-  .profile-dropdown .dropdown-header {
-    padding: 0.5rem 0.8rem;
-    font-weight: 600;
-    color: #222;
-  }
-</style>
-
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
-
-    <!-- Brand -->
-    <a class="navbar-brand" href="/listings">
-      <i class="fa-regular fa-compass"></i>
-    </a>
-
-    <!-- Mobile Toggle -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-
-      <!-- Explore -->
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-      </div>
-
-      <!-- Search -->
-      <div class="navbar-nav ms-auto">
-        <form
-          class="d-flex"
-          role="search"
-          action="/listings"
-          method="GET"
-        >
-          <input
-            class="form-control me-2 search-inp"
-            type="search"
-            name="search"
-            placeholder="Search destination"
-            aria-label="Search"
-          />
-
-          <button class="btn search-btn" type="submit">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            Search
-          </button>
-        </form>
-      </div>
-
-      <!-- Right Side -->
-      <div class="navbar-nav ms-auto align-items-center">
-
-        <!-- Become a Host -->
-        <a class="nav-link" href="/listings/new">
-          Become a host
-        </a>
-
-        <!-- Login / Signup -->
-        <% if (typeof currUser === "undefined" || !currUser) { %>
-
-          <!-- Signup -->
-          <a class="nav-link" href="/signup">
-            <b>Sign up</b>
-          </a>
-
-          <!-- Login -->
-          <a class="nav-link" href="/login">
-            <b>Login</b>
-          </a>
-
-        <% } %>
-
-        <!-- Profile -->
-        <% if (typeof currUser !== "undefined" && currUser) { %>
-
-          <!-- Profile Avatar -->
-          <div class="dropdown profile-dropdown">
-
-            <button
-              class="profile-avatar"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              title="<%= currUser.username %>"
-            >
-              <%= currUser.username.charAt(0).toUpperCase() %>
-            </button>
-
-            <!-- Dropdown Menu -->
-            <ul class="dropdown-menu dropdown-menu-end">
-
-              <li>
-                <h6 class="dropdown-header">
-                  <%= currUser.username %>
-                </h6>
-              </li>
-
-              <li>
-                <a class="dropdown-item" href="/logout">
-                  <i class="fa-solid fa-right-from-bracket me-2"></i>
-                  Log out
-                </a>
-              </li>
-
-            </ul>
-
+          <!-- Section 1: Where -->
+          <div class="search-segment segment-where" id="searchSegmentWhere" tabindex="0" role="button" aria-expanded="false" aria-controls="wherePopover">
+            <label class="search-label" for="searchWhereInput">Where</label>
+            <input
+              class="search-input"
+              id="searchWhereInput"
+              type="search"
+              name="search"
+              placeholder="Search destinations"
+              aria-label="Search destinations"
+              autocomplete="off"
+            />
           </div>
 
-        <% } %>
+          <!-- Divider -->
+          <div class="search-divider d-none d-md-block"></div>
 
-      </div>
+          <!-- Section 2: When -->
+          <div class="search-segment segment-when d-none d-md-flex" id="searchSegmentWhen" tabindex="0" role="button" aria-expanded="false" aria-controls="datePopover">
+            <span class="search-label">When</span>
+            <span class="search-subtext" id="selectedDateText">Add dates</span>
+          </div>
+
+          <!-- Divider -->
+          <div class="search-divider d-none d-lg-block"></div>
+
+          <!-- Section 3: Who -->
+          <div class="search-segment segment-who d-none d-lg-flex" id="searchSegmentWho" tabindex="0" role="button" aria-expanded="false" aria-controls="guestPopover">
+            <span class="search-label">Who</span>
+            <span class="search-subtext" id="selectedGuestText">Add guests</span>
+          </div>
+
+          <!-- Circular Search Button -->
+          <button class="search-circle-btn" type="submit" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+
+          <!-- 1. WHERE / DESTINATION DROPDOWN -->
+          <div class="search-popover search-where-popover shadow" id="wherePopover">
+            <div class="popover-header d-flex justify-content-between align-items-center mb-2">
+              <span class="fw-bold small text-uppercase tracking-wider">Suggested Destinations</span>
+              <button type="button" class="btn-close btn-close-sm" id="closeWherePopover" aria-label="Close"></button>
+            </div>
+            <div class="destination-list">
+              <div class="destination-item" data-value="">
+                <div class="dest-icon-box"><i class="fa-solid fa-earth-americas"></i></div>
+                <div class="dest-info">
+                  <div class="dest-name">Explore all stays</div>
+                  <div class="dest-desc">Show all available listings</div>
+                </div>
+              </div>
+              <div class="destination-item" data-value="Goa">
+                <div class="dest-icon-box"><i class="fa-solid fa-umbrella-beach"></i></div>
+                <div class="dest-info">
+                  <div class="dest-name">Goa, India</div>
+                  <div class="dest-desc">Tropical beaches & coastal villas</div>
+                </div>
+              </div>
+              <div class="destination-item" data-value="Manali">
+                <div class="dest-icon-box"><i class="fa-solid fa-mountain"></i></div>
+                <div class="dest-info">
+                  <div class="dest-name">Manali, Himachal Pradesh</div>
+                  <div class="dest-desc">Snowy peaks & mountain cabins</div>
+                </div>
+              </div>
+              <div class="destination-item" data-value="Mumbai">
+                <div class="dest-icon-box"><i class="fa-solid fa-city"></i></div>
+                <div class="dest-info">
+                  <div class="dest-name">Mumbai, Maharashtra</div>
+                  <div class="dest-desc">Urban lofts & seaside apartments</div>
+                </div>
+              </div>
+              <div class="destination-item" data-value="Jaipur">
+                <div class="dest-icon-box"><i class="fa-solid fa-chess-rook"></i></div>
+                <div class="dest-info">
+                  <div class="dest-name">Jaipur, Rajasthan</div>
+                  <div class="dest-desc">Royal palaces & heritage stays</div>
+                </div>
+              </div>
+              <div class="destination-item" data-value="Malibu">
+                <div class="dest-icon-box"><i class="fa-solid fa-water"></i></div>
+                <div class="dest-info">
+                  <div class="dest-name">Malibu, United States</div>
+                  <div class="dest-desc">Luxury oceanfront cottages</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. WHEN / DATE DROPDOWN (Dual Calendar) -->
+          <div class="search-popover search-date-popover shadow" id="datePopover">
+            <div class="popover-header d-flex justify-content-between align-items-center mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <button type="button" class="cal-nav-btn" id="prevMonthBtn" aria-label="Previous month">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <span class="fw-bold small text-uppercase tracking-wider">Select Dates</span>
+                <button type="button" class="cal-nav-btn" id="nextMonthBtn" aria-label="Next month">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+              </div>
+              <button type="button" class="btn-close btn-close-sm" id="closeDatePopover" aria-label="Close"></button>
+            </div>
+
+            <!-- Dual Month Calendar Container -->
+            <div class="dual-calendar-wrapper" id="dualCalendarWrapper">
+              <div class="calendar-month-box" id="calendarMonth1"></div>
+              <div class="calendar-month-box d-none d-md-block" id="calendarMonth2"></div>
+            </div>
+
+            <!-- Calendar Footer -->
+            <div class="calendar-footer d-flex justify-content-between align-items-center mt-2 pt-2 border-top">
+              <div class="selected-dates-summary small">
+                <span class="text-muted">Dates: </span>
+                <span class="fw-semibold text-dark" id="calSummaryText">Choose dates</span>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <button type="button" class="btn btn-sm btn-link text-muted text-decoration-none p-0" id="clearDatesBtn">Clear</button>
+                <button type="button" class="btn btn-sm btn-dark rounded-pill px-3" id="applyDatesBtn">Apply</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. WHO / GUEST DROPDOWN -->
+          <div class="search-popover search-guest-popover shadow" id="guestPopover">
+            <div class="popover-header d-flex justify-content-between align-items-center mb-2">
+              <span class="fw-bold small text-uppercase tracking-wider">Add Guests</span>
+              <button type="button" class="btn-close btn-close-sm" id="closeGuestPopover" aria-label="Close"></button>
+            </div>
+            
+            <div class="guest-counter-row d-flex justify-content-between align-items-center py-2 border-bottom">
+              <div>
+                <div class="fw-bold small">Adults</div>
+                <div class="text-muted extra-small">Ages 13 or above</div>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <button type="button" class="counter-btn" id="adultMinus" disabled aria-label="Decrease adults">-</button>
+                <span class="counter-num fw-bold small" id="adultCount">1</span>
+                <button type="button" class="counter-btn" id="adultPlus" aria-label="Increase adults">+</button>
+              </div>
+            </div>
+
+            <div class="guest-counter-row d-flex justify-content-between align-items-center py-2 border-bottom">
+              <div>
+                <div class="fw-bold small">Children</div>
+                <div class="text-muted extra-small">Ages 2–12</div>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <button type="button" class="counter-btn" id="childMinus" disabled aria-label="Decrease children">-</button>
+                <span class="counter-num fw-bold small" id="childCount">0</span>
+                <button type="button" class="counter-btn" id="childPlus" aria-label="Increase children">+</button>
+              </div>
+            </div>
+
+            <div class="guest-counter-row d-flex justify-content-between align-items-center py-2">
+              <div>
+                <div class="fw-bold small">Infants</div>
+                <div class="text-muted extra-small">Under 2</div>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <button type="button" class="counter-btn" id="infantMinus" disabled aria-label="Decrease infants">-</button>
+                <span class="counter-num fw-bold small" id="infantCount">0</span>
+                <button type="button" class="counter-btn" id="infantPlus" aria-label="Increase infants">+</button>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top">
+              <button type="button" class="btn btn-sm btn-link text-muted text-decoration-none p-0" id="clearGuestsBtn">Clear</button>
+              <button type="button" class="btn btn-sm btn-dark rounded-pill px-3" id="applyGuestsBtn">Apply</button>
+            </div>
+          </div>
+
+        </div>
+      </form>
     </div>
+
+    <!-- Right: Host & Profile Menu -->
+    <div class="nav-right d-flex align-items-center gap-2">
+      <!-- Become a Host -->
+      <a class="nav-link host-link d-none d-md-inline-block" href="/listings/new">
+        Become a host
+      </a>
+
+      <!-- 4. USER PROFILE DROPDOWN -->
+      <div class="dropdown user-menu-dropdown position-relative">
+        <button
+          class="user-menu-btn"
+          type="button"
+          data-bs-toggle="dropdown"
+          data-bs-display="static"
+          aria-expanded="false"
+          aria-label="User profile menu"
+          id="userProfileMenuBtn"
+        >
+          <i class="fa-solid fa-bars hamburger-icon"></i>
+          <% if (typeof currUser !== "undefined" && currUser) { %>
+            <span class="user-avatar-badge" title="<%= currUser.username %>">
+              <%= currUser.username.charAt(0).toUpperCase() %>
+            </span>
+          <% } else { %>
+            <div class="user-avatar-placeholder">
+              <i class="fa-solid fa-user"></i>
+            </div>
+          <% } %>
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-end user-dropdown-panel shadow-sm" aria-labelledby="userProfileMenuBtn">
+          <% if (typeof currUser === "undefined" || !currUser) { %>
+            <li>
+              <a class="dropdown-item fw-semibold highlight-link" href="/signup">
+                <i class="fa-solid fa-user-plus me-2 text-muted"></i>Sign up
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/login">
+                <i class="fa-solid fa-right-to-bracket me-2 text-muted"></i>Log in
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" href="/listings/new">
+                <i class="fa-solid fa-house-chimney me-2 text-muted"></i>Become a host
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/listings">
+                <i class="fa-solid fa-compass me-2 text-muted"></i>Explore stays
+              </a>
+            </li>
+          <% } else { %>
+            <li class="user-info-header px-3 py-2">
+              <div class="small text-muted">Signed in as</div>
+              <div class="fw-bold text-truncate"><%= currUser.username %></div>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" href="/listings/new">
+                <i class="fa-solid fa-house-chimney me-2 text-muted"></i>Become a host
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/listings">
+                <i class="fa-solid fa-compass me-2 text-muted"></i>Explore stays
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item logout-link text-danger" href="/logout">
+                <i class="fa-solid fa-right-from-bracket me-2"></i>Log out
+              </a>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+
+    </div>
+
   </div>
 </nav>
+
+<script src="/js/navbar.js"></script>

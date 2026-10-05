@@ -1,85 +1,179 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="filters">
+<!-- Category Discovery Section -->
+<div class="category-bar-wrapper">
+  <div class="category-scroll-container">
+    <button type="button" class="category-scroll-btn scroll-left d-none d-md-flex" id="scrollLeftBtn" aria-label="Scroll categories left">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
 
-    <a href="/listings?category=trending">
-        <i class="fa-solid fa-fire"></i>
-        <p>Trending</p>
-    </a>
+    <div class="category-filters" id="categoryFilters">
+      <a href="/listings" class="category-item" data-category="all">
+        <i class="fa-solid fa-border-all category-icon"></i>
+        <span class="category-label">All</span>
+      </a>
 
-    <a href="/listings?category=rooms">
-        <i class="fa-solid fa-bed"></i>
-        <p>Rooms</p>
-    </a>
+      <a href="/listings?category=trending" class="category-item" data-category="trending">
+        <i class="fa-solid fa-fire category-icon"></i>
+        <span class="category-label">Trending</span>
+      </a>
 
-    <a href="/listings?category=beach">
-        <i class="fa-solid fa-umbrella-beach"></i>
-        <p>Beach</p>
-    </a>
+      <a href="/listings?category=rooms" class="category-item" data-category="rooms">
+        <i class="fa-solid fa-bed category-icon"></i>
+        <span class="category-label">Rooms</span>
+      </a>
 
-    <a href="/listings?category=mountain">
-        <i class="fa-solid fa-mountain"></i>
-        <p>Mountains</p>
-    </a>
+      <a href="/listings?category=beach" class="category-item" data-category="beach">
+        <i class="fa-solid fa-umbrella-beach category-icon"></i>
+        <span class="category-label">Beach</span>
+      </a>
 
-    <a href="/listings?category=camping">
-        <i class="fa-solid fa-campground"></i>
-        <p>Camping</p>
-    </a>
+      <a href="/listings?category=mountain" class="category-item" data-category="mountain">
+        <i class="fa-solid fa-mountain category-icon"></i>
+        <span class="category-label">Mountains</span>
+      </a>
 
-    <a href="/listings?category=city">
-        <i class="fa-solid fa-city"></i>
-        <p>City</p>
-    </a>
+      <a href="/listings?category=camping" class="category-item" data-category="camping">
+        <i class="fa-solid fa-campground category-icon"></i>
+        <span class="category-label">Camping</span>
+      </a>
 
-    <a href="/listings?category=castle">
-        <i class="fa-solid fa-chess-rook"></i>
-        <p>Castle</p>
-    </a>
+      <a href="/listings?category=city" class="category-item" data-category="city">
+        <i class="fa-solid fa-city category-icon"></i>
+        <span class="category-label">City</span>
+      </a>
 
-    <a href="/listings?category=island">
-        <i class="fa-solid fa-water"></i>
-        <p>Island</p>
-    </a>
+      <a href="/listings?category=castle" class="category-item" data-category="castle">
+        <i class="fa-solid fa-chess-rook category-icon"></i>
+        <span class="category-label">Castle</span>
+      </a>
 
-    <a href="/listings?category=farm">
-        <i class="fa-solid fa-tractor"></i>
-        <p>Farm</p>
-    </a>
+      <a href="/listings?category=island" class="category-item" data-category="island">
+        <i class="fa-solid fa-water category-icon"></i>
+        <span class="category-label">Island</span>
+      </a>
 
-    <a href="/listings?category=snow">
-        <i class="fa-solid fa-snowflake"></i>
-        <p>Snow</p>
-    </a>
+      <a href="/listings?category=farm" class="category-item" data-category="farm">
+        <i class="fa-solid fa-tractor category-icon"></i>
+        <span class="category-label">Farm</span>
+      </a>
 
-    <a href="/listings?category=forest">
-        <i class="fa-solid fa-tree"></i>
-        <p>Forest</p>
-    </a>
+      <a href="/listings?category=snow" class="category-item" data-category="snow">
+        <i class="fa-solid fa-snowflake category-icon"></i>
+        <span class="category-label">Snow</span>
+      </a>
 
+      <a href="/listings?category=forest" class="category-item" data-category="forest">
+        <i class="fa-solid fa-tree category-icon"></i>
+        <span class="category-label">Forest</span>
+      </a>
+    </div>
+
+    <button type="button" class="category-scroll-btn scroll-right d-none d-md-flex" id="scrollRightBtn" aria-label="Scroll categories right">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Taxes Filter Toggle Switch -->
+  <div class="tax-toggle-container d-none d-xl-flex">
+    <div class="form-check form-switch tax-switch-box">
+      <input class="form-check-input tax-switch-input" type="checkbox" role="switch" id="taxSwitch">
+      <label class="form-check-label tax-switch-label" for="taxSwitch">
+        Display total before taxes
+      </label>
+    </div>
+  </div>
 </div>
 
-<!-- <h3>All Listings</h3> -->
-    <!-- <form action="/listings/new" method="GET">
-        <button>Create New Listings</button>
-    </form> -->
+<!-- Listings Section -->
+<div class="listings-section mt-4 mb-5">
+  <% if (!listings || listings.length === 0) { %>
+    <div class="empty-state-wrapper text-center py-5">
+      <div class="empty-state-icon mb-3">
+        <i class="fa-solid fa-magnifying-glass-location"></i>
+      </div>
+      <h4 class="fw-bold mb-2">No listings found</h4>
+      <p class="text-muted mb-4">We couldn't find any stays matching your search criteria. Try a different destination or explore all listings.</p>
+      <a href="/listings" class="btn btn-outline-dark rounded-pill px-4 py-2">
+        Explore all listings
+      </a>
+    </div>
+  <% } else { %>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4 listings-grid">
+      <% for (let i = 0; i < listings.length; i++) { 
+           let listing = listings[i];
+           // Deterministic rating between 4.75 and 4.98 for showcase
+           let ratingVal = (4.75 + ((i * 7) % 24) * 0.01).toFixed(2);
+      %>
+        <div class="col">
+          <div class="listing-card">
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+              <!-- Image Container -->
+              <div class="listing-img-box">
+                <img
+                  src="<%= listing.image && listing.image.url ? listing.image.url : 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=60' %>"
+                  class="listing-card-img"
+                  alt="<%= listing.title %>"
+                  loading="lazy"
+                >
+                <div class="listing-img-overlay"></div>
 
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-      <% for (let listing of listings) { %>
-      <a href="/listings/<%= listing._id %>" class="listing-link">  
-        <div class="card col">
-            <img src="<%= listing.image && listing.image.url ? listing.image.url : 'https://via.placeholder.com/300x200?text=No+Image' %>" class="card-img-top" alt="listing_image" style="height: 20rem;">
-            <div class="card-img-overlay"></div>
-            <div class="card-body">
-            <p class="card-text">
-            <b><%= listing.title %></b> <br>
-            &#8377;  <%=  listing.price.toLocaleString("en-IN") %>  / Night
-            </p>
+                <!-- Guest Favorite Badge (shown for select items) -->
+                <% if (i % 3 === 0) { %>
+                  <div class="listing-badge">
+                    <span>Guest favorite</span>
+                  </div>
+                <% } %>
 
-         </div>
+                <!-- Favorite Heart Button -->
+                <button
+                  type="button"
+                  class="favorite-btn"
+                  aria-label="Save this listing"
+                  data-id="<%= listing._id %>"
+                >
+                  <i class="fa-regular fa-heart heart-outline"></i>
+                  <i class="fa-solid fa-heart heart-filled"></i>
+                </button>
+              </div>
+
+              <!-- Card Content -->
+              <div class="listing-content">
+                <!-- Title & Rating -->
+                <div class="listing-header-row">
+                  <h6 class="listing-title" title="<%= listing.title %>"><%= listing.title %></h6>
+                  <div class="listing-rating">
+                    <i class="fa-solid fa-star star-icon"></i>
+                    <span class="rating-val"><%= ratingVal %></span>
+                  </div>
+                </div>
+
+                <!-- Location -->
+                <p class="listing-location">
+                  <i class="fa-solid fa-location-dot location-icon"></i>
+                  <span><%= listing.location ? listing.location : "Scenic location" %>, <%= listing.country ? listing.country : "Explore" %></span>
+                </p>
+
+                <!-- Pricing & Action Row -->
+                <div class="listing-action-row">
+                  <div class="listing-price-row">
+                    <span class="price-amount">&#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "0" %></span>
+                    <span class="price-period">/ night</span>
+                    <span class="tax-info text-muted small">&nbsp;+18% GST</span>
+                  </div>
+
+                  <span class="btn-book-now" role="button" aria-label="Book <%= listing.title %> now">
+                    <span>Book now</span>
+                    <i class="fa-solid fa-arrow-right-long book-arrow"></i>
+                  </span>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
-      </a>  
       <% } %>
+    </div>
+  <% } %>
 </div>
 
 
