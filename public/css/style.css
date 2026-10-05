@@ -1,202 +1,1402 @@
-body{
-    font-family: "plus jakarta Sans" , sans-serif !important;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+/* ==========================================================================
+   Wanderlust Modern Design System & Variables
+   ========================================================================== */
+:root {
+  --primary-color: #fe424d;
+  --primary-hover: #e0323d;
+  --primary-subtle: rgba(254, 66, 77, 0.08);
+  --text-main: #222222;
+  --text-secondary: #717171;
+  --text-muted: #999999;
+  --border-subtle: #ebebeb;
+  --border-medium: #dddddd;
+  --border-focus: #222222;
+  --bg-page: #ffffff;
+  --bg-surface: #f7f7f7;
+  --bg-hover: #f0f0f0;
+  --radius-pill: 40px;
+  --radius-card: 14px;
+  --radius-dropdown: 14px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-search: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-search-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-dropdown: 0 10px 30px rgba(0, 0, 0, 0.12);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.container {
-    flex: 1;
+/* Base resets & typography */
+body {
+  font-family: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  color: var(--text-main);
+  background-color: var(--bg-page);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* navbar */
-.navbar{
-    height: 5rem;
-    background-color: white;
+.main-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
-.fa-compass {
-    color: #fe424d;
-    font-size: 2rem;
+@media (min-width: 992px) {
+  .main-content {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
 }
 
-.nav-link {
-    color: #222222 !important;
+/* ==========================================================================
+   Top Navigation Bar
+   ========================================================================== */
+.wanderlust-navbar {
+  background-color: var(--bg-page);
+  border-bottom: 1px solid var(--border-subtle);
+  min-height: 4.75rem;
+  padding: 0.6rem 0;
+  z-index: 1030;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.96);
 }
 
-/* footer */
-
-.f-info-links a {
-    text-decoration: none;
-    color: #222222;
+.navbar-container {
+  max-width: 1600px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.f-info-links a:hover {
-    text-decoration: underline;
+@media (min-width: 992px) {
+  .navbar-container {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
 }
 
-.f-info-links , .f-info-socials , .f-info-brand{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Left: Brand */
+.nav-left {
+  flex-shrink: 0;
+  gap: 1.25rem;
 }
 
-.f-info-socials i {
-    margin-right: 1rem;
-    font-size: 1.3rem;
+.navbar-brand {
+  color: var(--primary-color) !important;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
 }
 
-.f-info {
-    text-align: center;
-    height: 8rem;
-    background-color: #ebebeb;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: space-evenly;
+.brand-icon {
+  font-size: 1.9rem;
+  color: var(--primary-color);
+  transition: transform var(--transition-normal);
 }
 
-/* cards */
-.card {
-    border: none !important;
-    margin-bottom: 2rem;
+.navbar-brand:hover .brand-icon {
+  transform: rotate(25deg);
 }
 
-.card-img-top {
-    border-radius: 0.7rem !important;
-    width: 100%;
-    height: 200px;
-    object-fit: cover; /* keeps image properly cropped */
-    transition: transform 0.2s ease, filter 0.2s ease; /* smooth zoom + brightness */
+.brand-text {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  letter-spacing: -0.6px;
+  line-height: 1;
 }
 
-/* Image hover effect */
-.card:hover .card-img-top {
-    transform: scale(1.02); /* image zooms slightly more */
-    filter: brightness(1.05); /* adds a soft brightness glow */
+.explore-link {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-main) !important;
+  padding: 0.5rem 0.9rem !important;
+  border-radius: 20px;
+  transition: background-color var(--transition-fast);
 }
 
-.card-body {
-    padding: 0 !important;
+.explore-link:hover {
+  background-color: var(--bg-surface);
 }
 
-.card-body p {
-    font-weight: 350 !important;
+/* Center: Modern 3-Section Airbnb-inspired Search Component */
+.nav-center {
+  flex: 1;
+  max-width: 580px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.search-form {
+  width: 100%;
+}
+
+.search-bar-tri-section {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-pill);
+  padding: 0.32rem 0.45rem 0.32rem 0.65rem;
+  box-shadow: var(--shadow-search);
+  transition: all var(--transition-normal);
+  position: relative; /* anchor for .search-popover children */
+}
+
+
+.search-bar-tri-section:hover {
+  box-shadow: var(--shadow-search-hover);
+  border-color: #c0c0c0;
+}
+
+.search-bar-tri-section:focus-within {
+  border-color: var(--text-main);
+  box-shadow: 0 0 0 1px var(--text-main), var(--shadow-search-hover);
+}
+
+.search-segment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.28rem 0.85rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  min-width: 0;
+}
+
+.search-segment:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.search-segment.segment-where {
+  flex: 1.4;
+}
+
+.search-segment.segment-when {
+  flex: 1;
+}
+
+.search-segment.segment-who {
+  flex: 1;
+}
+
+.search-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 1px;
+  line-height: 1.1;
+  user-select: none;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--text-main);
+  width: 100%;
+  padding: 0;
+  line-height: 1.2;
+}
+
+.search-input::placeholder {
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-size: 0.84rem;
+}
+
+.search-subtext {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+  line-height: 1.2;
+}
+
+.search-divider {
+  width: 1px;
+  height: 28px;
+  background-color: var(--border-medium);
+  flex-shrink: 0;
+  margin: 0 0.15rem;
+}
+
+/* Circular Search Button */
+.search-circle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.92rem;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  margin-left: 0.35rem;
+  box-shadow: 0 2px 6px rgba(254, 66, 77, 0.3);
+}
+
+.search-circle-btn:hover {
+  background-color: var(--primary-hover);
+  transform: scale(1.06);
+  box-shadow: 0 4px 12px rgba(254, 66, 77, 0.45);
+}
+
+.search-circle-btn:active {
+  transform: scale(0.96);
+}
+
+/* Interactive Popovers */
+.search-popover {
+  position: absolute;
+  top: calc(100% + 12px);
+  background-color: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-dropdown);
+  padding: 1.25rem 1.4rem;
+  z-index: 1060;
+  display: none;
+  animation: fadeInDown 0.2s ease-out;
+}
+
+.search-popover.show {
+  display: block;
+}
+
+/* Date popover enhancements */
+.search-date-popover {
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  max-width: calc(100vw - 2rem);
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.dual-calendar-wrapper {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.calendar-month-box {
+  flex: 1;
+  min-width: 270px;
+}
+
+.calendar-month-title {
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  letter-spacing: 0.01em;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar-weekday {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 4px 0;
+}
+
+.calendar-day {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-main);
+  transition: background-color 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.calendar-day:hover:not(:disabled) {
+  background-color: var(--bg-hover);
+}
+
+.calendar-disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.calendar-today {
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.calendar-selected {
+  background-color: var(--primary-color) !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.calendar-range {
+  background-color: var(--primary-subtle);
+  border-radius: 0;
+}
+
+.calendar-checkin {
+  border-radius: 50% 0 0 50%;
+}
+
+.calendar-checkout {
+  border-radius: 0 50% 50% 0;
+}
+
+.calendar-empty {
+  width: 100%;
+  aspect-ratio: 1;
+  visibility: hidden;
+}
+
+/* Mobile: one month */
+@media (max-width: 600px) {
+  .search-date-popover {
+    width: calc(100vw - 2rem);
+    left: 0;
+    transform: none;
+  }
+  #calendarMonth2 {
+    display: none;
+  }
+}
+
+
+.search-guest-popover {
+  right: 0;
+  min-width: 290px;
+}
+
+.counter-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border-medium);
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.counter-btn:hover:not(:disabled) {
+  border-color: var(--text-main);
+  color: var(--text-main);
+}
+
+.counter-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.counter-num {
+  min-width: 18px;
+  text-align: center;
+}
+
+.extra-small {
+  font-size: 0.74rem;
+}
+
+/* Right: Host Link & User Menu */
+.nav-right {
+  flex-shrink: 0;
+  gap: 0.75rem;
+}
+
+.host-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main) !important;
+  padding: 0.55rem 0.95rem !important;
+  border-radius: 24px;
+  transition: background-color var(--transition-fast);
+}
+
+.host-link:hover {
+  background-color: var(--bg-surface);
+}
+
+/* Airbnb-style User Menu Pill Button */
+.user-menu-dropdown {
+  position: relative;
+}
+
+.user-menu-btn {
+  background-color: #ffffff;
+  border: 1px solid var(--border-medium);
+  border-radius: 30px;
+  padding: 4px 6px 4px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.user-menu-btn:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border-color: #c0c0c0;
+}
+
+.hamburger-icon {
+  font-size: 0.88rem;
+  color: #555555;
+}
+
+.user-avatar-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-avatar-placeholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #717171;
+  color: #ffffff;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* User Dropdown Panel */
+.user-dropdown-panel {
+  border-radius: var(--radius-dropdown) !important;
+  border: 1px solid var(--border-subtle) !important;
+  box-shadow: var(--shadow-dropdown) !important;
+  padding: 0.5rem 0 !important;
+  min-width: 230px !important;
+  margin-top: 0.65rem !important;
+  animation: fadeInDown 0.18s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-dropdown-panel .dropdown-item {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  transition: background-color var(--transition-fast);
+}
+
+.user-dropdown-panel .dropdown-item:hover {
+  background-color: var(--bg-surface);
+  color: #000000;
+}
+
+.user-dropdown-panel .dropdown-divider {
+  margin: 0.4rem 0;
+  border-top-color: var(--border-subtle);
+}
+
+.user-info-header {
+  line-height: 1.3;
+}
+
+/* ==========================================================================
+   Category Discovery Navigation
+   ========================================================================== */
+.category-bar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 0 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-page);
+  position: sticky;
+  top: 4.75rem;
+  z-index: 1020;
+}
+
+.category-scroll-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+}
+
+.category-filters {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0.5rem 0.25rem 0.75rem;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.category-filters::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--text-secondary);
+  opacity: 0.8;
+  padding: 0.35rem 0.4rem 0.65rem;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  flex-shrink: 0;
+  min-width: 60px;
+}
+
+.category-icon {
+  font-size: 1.35rem;
+  margin-bottom: 0.45rem;
+  transition: transform var(--transition-normal), color var(--transition-normal);
+}
+
+.category-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.category-item:hover {
+  opacity: 1;
+  color: var(--text-main);
+  border-bottom: 2px solid var(--border-medium);
+}
+
+.category-item:hover .category-icon {
+  transform: scale(1.12);
+  color: var(--text-main);
+}
+
+.category-item.active {
+  opacity: 1;
+  color: var(--text-main);
+  border-bottom: 2px solid var(--text-main);
+}
+
+.category-item.active .category-icon {
+  color: var(--primary-color);
+}
+
+/* Category Scroll Buttons */
+.category-scroll-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid var(--border-medium);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  color: var(--text-main);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.category-scroll-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14);
+}
+
+.category-scroll-btn.scroll-left {
+  margin-right: 0.5rem;
+}
+
+.category-scroll-btn.scroll-right {
+  margin-left: 0.5rem;
+}
+
+/* Taxes Filter Box */
+.tax-toggle-container {
+  flex-shrink: 0;
+}
+
+.tax-switch-box {
+  border: 1px solid var(--border-medium);
+  border-radius: 12px;
+  padding: 0.65rem 1rem 0.65rem 2.75rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  transition: border-color var(--transition-fast);
+  cursor: pointer;
+}
+
+.tax-switch-box:hover {
+  border-color: #b5b5b5;
+}
+
+.tax-switch-input {
+  cursor: pointer;
+  margin-left: -2.25rem !important;
+}
+
+.tax-switch-input:checked {
+  background-color: var(--text-main);
+  border-color: var(--text-main);
+}
+
+.tax-switch-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Modern Listing Cards & Grid
+   ========================================================================== */
+.listings-grid {
+  margin-top: 0.5rem;
+}
+
+.listing-card {
+  position: relative;
+  border-radius: var(--radius-card);
+  transition: transform var(--transition-normal);
 }
 
 .listing-link {
-    text-decoration: none;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
-.card-img-overlay {
-    opacity: 0;
+/* Image Container */
+.listing-img-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 20 / 19;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background-color: #f0f0f0;
 }
 
-.card-img-overlay:hover {
-    opacity: 0.2;
-    background-color: white;
+.listing-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-smooth), filter var(--transition-normal);
 }
 
-/* new page */
-
-.add-btn {
-    background-color: #fe424d !important;
-    border: none !important;
+.listing-card:hover .listing-card-img {
+  transform: scale(1.05);
 }
 
-/* edit page */
-.edit-btn{
-    background-color: #fe424d !important;
-    border: none !important;
+.listing-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 25%);
+  pointer-events: none;
 }
 
-/* show page */
-.show-img{
-    height: 50vh;
+/* Guest Favorite Badge */
+.listing-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: var(--text-main);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+  pointer-events: none;
+  z-index: 2;
+  letter-spacing: 0.02em;
 }
 
+/* Favorite Heart Button */
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  padding: 0;
+  transition: transform var(--transition-fast);
+}
+
+.favorite-btn:hover {
+  transform: scale(1.18);
+}
+
+.favorite-btn .heart-outline {
+  font-size: 1.35rem;
+  color: #ffffff;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+  transition: color var(--transition-fast);
+}
+
+.favorite-btn .heart-filled {
+  display: none;
+  font-size: 1.35rem;
+  color: var(--primary-color);
+  filter: drop-shadow(0 2px 6px rgba(254, 66, 77, 0.35));
+}
+
+.favorite-btn.active .heart-outline {
+  display: none;
+}
+
+.favorite-btn.active .heart-filled {
+  display: inline-block;
+  animation: heartPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes heartPop {
+  0% { transform: scale(0.6); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+/* Listing Details Content */
+.listing-content {
+  padding: 0.75rem 0.2rem 0.25rem;
+}
+
+.listing-header-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.listing-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+}
+
+.listing-rating {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  flex-shrink: 0;
+}
+
+.star-icon {
+  font-size: 0.8rem;
+  color: var(--text-main);
+}
+
+.listing-location {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.35rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.location-icon {
+  font-size: 0.76rem;
+  color: var(--primary-color);
+}
+
+.listing-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.listing-price-row {
+  display: flex;
+  align-items: baseline;
+  font-size: 0.95rem;
+  min-width: 0;
+}
+
+.price-amount {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.price-period {
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+  margin-left: 0.25rem;
+}
+
+.tax-info {
+  display: none;
+}
+
+.show-tax .tax-info {
+  display: inline;
+}
+
+/* Prominent "Book Now" Button */
+.btn-book-now {
+  background-color: var(--primary-color);
+  color: #ffffff !important;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.42rem 0.95rem;
+  border-radius: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 6px rgba(254, 66, 77, 0.25);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-book-now:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(254, 66, 77, 0.4);
+  color: #ffffff !important;
+}
+
+.book-arrow {
+  font-size: 0.76rem;
+  transition: transform var(--transition-fast);
+}
+
+.listing-card:hover .btn-book-now .book-arrow {
+  transform: translateX(3px);
+}
+
+/* Empty State */
+.empty-state-wrapper {
+  padding: 5rem 1rem;
+}
+
+.empty-state-icon {
+  font-size: 3.5rem;
+  color: var(--primary-color);
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   Existing Detail, Form & Review Pages (Preserved & Polished)
+   ========================================================================== */
+.show-img {
+  height: 50vh;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
 
 .btns {
-    margin-bottom: 5rem; /* adds space before footer */
-    display: flex;
+  margin-bottom: 5rem;
+  display: flex;
+  gap: 1rem;
 }
 
-.del-btn{
-    background-color: #fe424d !important;
+.add-btn,
+.edit-btn,
+.del-btn {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: #ffffff !important;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  transition: background-color var(--transition-fast);
 }
 
-.card-body{
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    background-color: #fafafa;
+.add-btn:hover,
+.edit-btn:hover,
+.del-btn:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+.review-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 1.25rem;
+  background-color: #ffffff;
+  transition: box-shadow var(--transition-normal), border-color var(--transition-normal);
 }
 
 .review-card:hover {
-    border-color: #d1d5db;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.rating {
-    color: #f59e0b; /* gold */
-    font-weight: 600;
+  border-color: var(--border-medium);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 #map {
-    height: 380px;
-    width: 85%;
-    margin: 0 auto;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  height: 380px;
+  width: 100%;
+  border-radius: var(--radius-card);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
-.filters{
-display:flex;
-gap:40px;
-padding:10px;
-border-bottom:1px solid #ddd;
-overflow-x:auto;
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+footer {
+  margin-top: auto;
 }
 
-.filters a{
-text-decoration:none;
-color:black;
-text-align:center;
-font-size:14px;
+.f-info {
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-subtle);
+  padding: 2.25rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
-.filters i{
-font-size:22px;
-display:block;
-margin-bottom:5px;
+.f-info-socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
 }
 
-.filters a{
-    text-decoration: none;
-    color: #555;
+.f-info-socials a,
+.f-info-socials i {
+  color: var(--text-main);
+  font-size: 1.3rem;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.f-info-socials a:hover,
+.f-info-socials i:hover {
+  color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.f-info-brand {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.f-info-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.f-info-links a {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.f-info-links a:hover {
+  color: var(--text-main);
+  text-decoration: underline;
+}
+
+/* =========================================================
+   DROPDOWN / POPOVER LAYERING FIX
+   ========================================================= */
+
+/* Keep the complete navbar above the category bar */
+.wanderlust-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 2000 !important;
+  overflow: visible !important;
+}
+
+/* Make sure navbar containers don't clip popovers */
+.navbar-container,
+.nav-center,
+.search-form,
+.search-bar-tri-section {
+  position: relative;
+  overflow: visible !important;
+}
+
+/* Search popovers must always sit above everything */
+.search-popover {
+  position: absolute !important;
+  z-index: 3000 !important;
+}
+
+/* Date picker */
+.search-date-popover {
+  top: calc(100% + 12px);
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: min(700px, 90vw);
+  max-width: 700px;
+}
+
+/* Guest picker */
+.search-guest-popover {
+  top: calc(100% + 12px);
+  right: 0;
+  left: auto;
+  min-width: 320px;
+}
+
+/* Destination picker */
+.search-where-popover {
+  top: calc(100% + 12px);
+  left: 0;
+  right: auto;
+  width: 360px;
+  max-width: 90vw;
+}
+
+/* Bootstrap profile dropdown above everything */
+.user-menu-dropdown {
+  position: relative !important;
+  z-index: 3001 !important;
+}
+
+.user-dropdown-panel {
+  z-index: 3002 !important;
+}
+
+/* Category bar stays below navbar/popovers */
+.category-bar-wrapper {
+  z-index: 1000 !important;
+}
+
+
+/* =========================================================
+   WANDERLUST DATE PICKER
+   ========================================================= */
+
+.dual-calendar-wrapper {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  padding: 1rem 0 1.25rem;
+}
+
+.calendar-month-box {
+  flex: 1;
+  min-width: 0;
+}
+
+.calendar-month-title {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 0.35rem;
+}
+
+.calendar-weekday {
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 0.35rem 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.calendar-day {
+  width: 38px;
+  height: 38px;
+  margin: auto;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease,
+              color 0.15s ease,
+              transform 0.15s ease;
+}
+
+.calendar-day:hover:not(:disabled):not(.empty) {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.calendar-day.empty {
+  pointer-events: none;
+}
+
+.calendar-day.disabled {
+  color: #c7c7c7;
+  cursor: not-allowed;
+}
+
+.calendar-day.today {
+  font-weight: 800;
+  box-shadow: inset 0 0 0 1px var(--text-main);
+}
+
+.calendar-day.selected {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.calendar-day.selected:hover {
+  background-color: var(--primary-hover);
+  color: #ffffff;
+}
+
+.calendar-day.in-range {
+  background-color: var(--primary-subtle);
+  border-radius: 8px;
+  color: var(--text-main);
+}
+
+.calendar-day.check-in,
+.calendar-day.check-out {
+  border-radius: 50%;
+}
+
+.calendar-footer {
+  min-height: 48px;
+}
+
+
+/* Desktop date picker */
+.search-date-popover {
+  width: min(720px, 90vw);
+  max-width: 720px;
+}
+
+
+/* Mobile */
+@media (max-width: 767px) {
+  .dual-calendar-wrapper {
+    display: block;
+  }
+
+  #calendarMonth2 {
+    display: none !important;
+  }
+
+  .search-date-popover {
+    width: min(95vw, 400px);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  .calendar-day {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* ================================
+   FULL CALENDAR
+================================ */
+
+.search-date-popover {
+    width: 720px !important;
+    max-width: 90vw !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%);
+}
+
+.dual-calendar-wrapper {
+    display: flex;
+    gap: 40px;
+    padding: 10px 10px 20px;
+}
+
+.calendar-month-box {
+    flex: 1;
+}
+
+.calendar-month-title {
     text-align: center;
-    opacity: 0.9;
-    transition: all 0.2s ease;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 5px 0 20px;
 }
 
-.filters a:hover{
-    opacity: 1;
-    color: black;
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 8px;
 }
 
-.filters i{
-    font-size: 22px;
-    margin-bottom: 5px;
+.calendar-weekday {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #717171;
 }
 
-.filters a:hover i{
-    transform: scale(1.08);
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
 }
 
-.btn-search {
-    background-color: #fe424d;
-    color: #fff;
+.calendar-day {
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
 }
 
+.calendar-day:hover:not(:disabled) {
+    background: #f1f1f1;
+}
+
+.calendar-selected {
+    background: #ff385c !important;
+    color: white;
+    font-weight: 700;
+}
+
+.calendar-range {
+    background: #ffe4e8;
+    border-radius: 8px;
+}
+
+.calendar-disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.calendar-today {
+    font-weight: 800;
+    box-shadow: inset 0 0 0 1px #222;
+}
+
+.calendar-empty {
+    height: 40px;
+}
